@@ -52,7 +52,8 @@ class InitialScreen(tk.Tk):
         self.selected_file = filedialog.askopenfilename(
             filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg'),
                        ('Archivos de Video', '*.mp4; *.avi')])
-        self.path = tk.Label(self, text='', wraplength=500)
+        self.path = tk.Label(self, text='', 
+                             wraplength=500)
         self.path.place(x=35, y = 420)
         if self.selected_file:
             self.path.config(text=f'Archivo: {self.selected_file}', 
