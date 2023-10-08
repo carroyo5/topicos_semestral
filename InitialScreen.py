@@ -1,9 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from styles import get_app_style
-import os
 from tkinter import filedialog
-from app import CameraScreen
+from CameraConfig import CameraScreen
 import _tkinter
 
 class InitialScreen(tk.Tk):
@@ -50,11 +49,18 @@ class InitialScreen(tk.Tk):
         self.search.place(x=42, y=270)
         
     def search_function(self):
-        self.archivo_seleccionado = filedialog.askopenfilename(
+        self.selected_file = filedialog.askopenfilename(
             filetypes=[('Imagenes', '*.png; *.jpg; *.jpeg'),
                        ('Archivos de Video', '*.mp4; *.avi')])
+        self.path = tk.Label(self, text='', wraplength=500)
+        self.path.place(x=35, y = 420)
+        if self.selected_file:
+            self.path.config(text=f'Archivo: {self.selected_file}', 
+                        font=('Inter Bold', 10), 
+                        foreground='#75AD3C')
+        else:
+            self.path.config(text='')
         
-
     def exit_button(self):
         self.exit_icon = tk.PhotoImage(file=r'.\button_icon\exit.png')
         self.exit = ttk.Button(text='Salir',

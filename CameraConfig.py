@@ -18,7 +18,7 @@ class CameraScreen(tk.Toplevel):
             self.deiconify()
             self.destroy()
             return 
-        frame_index = 0
+
         while capture.isOpened():
             ret, frame = capture.read()
             if ret is True:
