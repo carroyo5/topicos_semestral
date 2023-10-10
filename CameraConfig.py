@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 from tkinter import ttk
 from styles import get_app_style
+from recognitionLogic import CatRecognition
 
 class CameraScreen(tk.Toplevel):
     def __init__(self, master=None):
@@ -16,6 +17,7 @@ class CameraScreen(tk.Toplevel):
         self.capture = None
         self.label = tk.Label(self)
         self.label.pack(fill=tk.BOTH, expand=True)
+        self.cat_recognition = CatRecognition
         self.create_buttons()
         self.camara()
 
@@ -66,12 +68,17 @@ class CameraScreen(tk.Toplevel):
         pass
     
     def capture_information(self):
-        pass
+        if self.cat_recognition.check():
+            pass
+        else:
+            #Se procede a pasar los parametros de la cámara.
+            x, y = self.frame.shape
+            self.cat_recognition(x,y)
 
     def update_camera(self):
-        ret, frame = self.capture.read()
+        ret, self.frame = self.capture.read()
         if ret:
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
             img = ImageTk.PhotoImage(image=Image.fromarray(frame))
             self.label.config(image=img)
             self.label.image = img
